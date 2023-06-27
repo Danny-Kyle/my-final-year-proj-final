@@ -9,7 +9,7 @@ import {
   EuiText,
   EuiTextColor,
 } from "@elastic/eui";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/images.png";
 import animation from "../assets/animation.gif";
 import React from "react";
 import {
