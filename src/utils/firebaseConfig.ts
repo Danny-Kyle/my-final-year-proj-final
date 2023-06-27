@@ -2,13 +2,13 @@ import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { collection, getFirestore } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: "react-auth-6788d.firebaseapp.com",
-  projectId: "react-auth-6788d",
-  storageBucket: "react-auth-6788d.appspot.com",
-  messagingSenderId: "131797845021",
-  appId: "1:131797845021:web:3f7ff4766e2b89ca5d32f4",
-  measurementId: "G-VWPBR1NSLL",
+  apiKey: "AIzaSyCMDz4_Jz92NgyocjbRVJ8fA7dxcuV1JAc",
+  authDomain: "project-vcga.firebaseapp.com",
+  projectId: "project-vcga",
+  storageBucket: "project-vcga.appspot.com",
+  messagingSenderId: "429394114729",
+  appId: "1:429394114729:web:e311abae3b8bd248b191b8",
+  measurementId: "G-9EF5RDSY96"
 };
 
 const app = initializeApp(firebaseConfig);

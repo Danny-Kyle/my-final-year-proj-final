@@ -11,7 +11,6 @@ import {
 } from "@elastic/eui";
 import logo from "../assets/logo.png";
 import animation from "../assets/animation.gif";
-
 import React from "react";
 import {
   GoogleAuthProvider,
@@ -32,7 +31,7 @@ function Login() {
     if (currentUser) navigate("/");
   });
 
-  const login = async () => {
+  const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const {
       user: { displayName, email, uid },
@@ -75,7 +74,7 @@ function Login() {
                   </h3>
                 </EuiText>
                 <EuiSpacer size="l" />
-                <EuiButton fill onClick={login}>
+                <EuiButton fill onClick={loginWithGoogle}>
                   Login with Google
                 </EuiButton>
               </EuiFlexItem>
