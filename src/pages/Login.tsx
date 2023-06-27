@@ -14,6 +14,8 @@ import animation from "../assets/animation.gif";
 import React from "react";
 import {
   GoogleAuthProvider,
+  GithubAuthProvider,
+  TwitterAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
@@ -32,10 +34,50 @@ function Login() {
   });
 
   const loginWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
     const {
       user: { displayName, email, uid },
-    } = await signInWithPopup(firebaseAuth, provider);
+    } = await signInWithPopup(firebaseAuth, googleProvider);
+
+    if (email) {
+      const firestoreQuery = query(usersRef, where("uid", "==", uid));
+      const fetchedUser = await getDocs(firestoreQuery);
+      if (fetchedUser.docs.length === 0) {
+        await addDoc(collection(firebaseDB, "users"), {
+          uid,
+          name: displayName,
+          email,
+        });
+      }
+      dispatch(setUser({ uid, email: email!, name: displayName! }));
+      navigate("/");
+    }
+  };
+  const loginWithTwitter = async () => {
+    const twitterProvider = new TwitterAuthProvider();
+    const {
+      user: { displayName, email, uid },
+    } = await signInWithPopup(firebaseAuth, twitterProvider);
+
+    if (email) {
+      const firestoreQuery = query(usersRef, where("uid", "==", uid));
+      const fetchedUser = await getDocs(firestoreQuery);
+      if (fetchedUser.docs.length === 0) {
+        await addDoc(collection(firebaseDB, "users"), {
+          uid,
+          name: displayName,
+          email,
+        });
+      }
+      dispatch(setUser({ uid, email: email!, name: displayName! }));
+      navigate("/");
+    }
+  };
+  const loginWithGithub = async () => {
+    const githubProvider = new GithubAuthProvider();
+    const {
+      user: { displayName, email, uid },
+    } = await signInWithPopup(firebaseAuth, githubProvider);
 
     if (email) {
       const firestoreQuery = query(usersRef, where("uid", "==", uid));
@@ -69,13 +111,21 @@ function Login() {
                 <EuiSpacer size="xs" />
                 <EuiText textAlign="center" grow={false}>
                   <h3>
-                    <EuiTextColor>One Platform to</EuiTextColor>
-                    <EuiTextColor color="#0b5cff"> connect</EuiTextColor>
+                    {/* <EuiTextColor>One Platform to</EuiTextColor> */}
+                    <EuiTextColor color="#0b5cff"> CIS VCGA </EuiTextColor>
                   </h3>
                 </EuiText>
                 <EuiSpacer size="l" />
                 <EuiButton fill onClick={loginWithGoogle}>
                   Login with Google
+                </EuiButton>
+                <EuiSpacer size="l" />
+                <EuiButton fill onClick={loginWithTwitter}>
+                  Login with Twitter
+                </EuiButton>
+                <EuiSpacer size="l" />
+                <EuiButton fill onClick={loginWithGithub}>
+                  Login with GitHub
                 </EuiButton>
               </EuiFlexItem>
             </EuiFlexGroup>
